@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStickman : Stickman
 {
+    [SerializeField] private int _weaponNumber;
+
     public Camera _camera;
 
-    private void Start()
+    private void Awake()
     {
-        GiveWeapon();
+        GiveWeapon(_weaponNumber);
+        Setup();
     }
 
     private void Update()

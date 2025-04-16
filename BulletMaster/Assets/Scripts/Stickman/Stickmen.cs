@@ -1,44 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Stickman : MonoBehaviour
 {
-    /*[SerializeField] private ParticleSystem _bloodParticles;
-    [SerializeField] private AudioSource _deathSound;*/
     [SerializeField] private Transform _weaponParent;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private ParticleSystem _bloodParticles;
+    [HideInInspector] public bool isAlive = true;
+    [HideInInspector] public Action onDied;
 
-    [SerializeField] protected int _weaponNumber;
-    protected bool _isAlive = true;
+    private Animator _animator;
+    private AudioSource _deathSound;
+    private int _force = 60;
+    private Collider _mainCollider;
 
-    private void Start()
+    protected void Setup()
     {
-        GiveWeapon();
+        _animator = GetComponent<Animator>();
+        _mainCollider = GetComponent<Collider>();
+        _deathSound = GetComponent<AudioSource>();
     }
 
-    protected void GiveWeapon()
+    protected void GiveWeapon(int weaponNumber)
     {
-        if ( _weaponNumber != -1)
+        if ( weaponNumber != -1)
         {
-            Instantiate(LevelSettings.instance.weapons[_weaponNumber].gameObject, _weaponParent);
+            GameObject weapon = Instantiate(LevelSettings.instance.weapons[weaponNumber].gameObject, _weaponParent);
+            LevelSettings.instance.weapon = weapon.GetComponent<Weapon>();
             gameObject.GetComponent<Animator>().SetInteger("Weapon", 1);
         }
     }
 
     protected Quaternion RorateAngle()
     {
-        // Получаем положение курсора на экране
         Vector3 mousePosition = Input.mousePosition;
-
-        // Преобразуем экранные координаты в мировые
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        // Получаем направление от персонажа к курсору
         Vector3 direction = new Vector3(mousePosition.x, transform.position.y, mousePosition.z) - transform.position;
-
-        // Вычисляем угол поворота
         Quaternion rotation = Quaternion.LookRotation(direction);
 
         return rotation;
+    }
+
+    public void OnDied(Vector3 direction)
+    {
+        _animator.enabled = false;
+        _rigidbody.AddForce(direction * _force, ForceMode.Impulse);
+        _bloodParticles.Play();
+        _deathSound.Play();
+        _mainCollider.enabled = false;
+
+        onDied?.Invoke();
     }
 }

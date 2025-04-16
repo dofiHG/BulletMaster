@@ -1,12 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pistol : Weapon
 {
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
-            Shoot(0);
+        CheskLaserState();
+
+        if (Input.GetMouseButtonUp(0) && LevelSettings.instance.canShoot)
+            Shoot(1);
+    }
+
+    private void CheskLaserState()
+    {
+        if (Input.GetMouseButton(0) && LevelSettings.instance.canShoot)
+            DrawLaser();
+        else
+            HideLaser();
     }
 }
