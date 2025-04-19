@@ -13,6 +13,7 @@ public class LevelSettings : MonoBehaviour
     [SerializeField] private Transform _bulletsContainer;
     [SerializeField] private GameObject _losePanel;
     [SerializeField] private GameObject _winPanel;
+    [SerializeField] private GameObject _bulletPanel;
 
     private List<EnemyStickman> _enemies = new List<EnemyStickman>();
     private int _enemiesCount;
@@ -74,8 +75,7 @@ public class LevelSettings : MonoBehaviour
             weapon.shoot -= OnShot;
             weapon.enabled = false;
             canShoot = false;
-            if (!win)
-                StartCoroutine(OnLose());
+            StartCoroutine(OnLose());
         }
     }
 
@@ -90,12 +90,14 @@ public class LevelSettings : MonoBehaviour
     private IEnumerator OnLose()
     {
         yield return new WaitForSeconds(3);
-        _losePanel.SetActive(true);
+        if (!win)
+            _losePanel.SetActive(true);
     }
 
     private IEnumerator OnWin()
     {
         yield return new WaitForSeconds(3);
+        _bulletPanel.SetActive(false);
         _winPanel.SetActive(true);
     }
 }

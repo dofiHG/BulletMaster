@@ -6,7 +6,7 @@ public class PlayerStickman : Stickman
 
     public Camera _camera;
 
-    private void Awake()
+    private void Start()
     {
         GiveWeapon(_weaponNumber);
         Setup();
