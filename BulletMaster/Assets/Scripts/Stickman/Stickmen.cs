@@ -48,6 +48,7 @@ public class Stickman : MonoBehaviour
         _bloodParticles.Play();
         _deathSound.Play();
         _mainCollider.enabled = false;
+        isAlive = false;
 
         onDied?.Invoke();
     }

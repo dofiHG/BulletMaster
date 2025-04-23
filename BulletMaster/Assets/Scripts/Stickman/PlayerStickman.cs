@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStickman : Stickman
@@ -14,7 +15,10 @@ public class PlayerStickman : Stickman
 
     private void Update()
     {
-        RotatePlayer();     
+        RotatePlayer();
+
+        if (!isAlive)
+            StartCoroutine(LevelSettings.instance.OnLose());
     }
 
     private void RotatePlayer()

@@ -57,7 +57,6 @@ public class Weapon : MonoBehaviour
         bullet.transform.position = gunEndPosition.position;
         bullet.GetComponent<Bullet>().direction = direction;
         _shootSound.Play();
-
         shoot?.Invoke();
     }
 }

@@ -5,44 +5,61 @@ using UnityEngine;
 public class LevelSettings : MonoBehaviour
 {
     public static LevelSettings instance;
-    public GameObject[] weapons;
+
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public bool canShoot;
-        
+    public GameObject[] weapons;
+    
+    [SerializeField] private GameObject _bulletObject; 
     [SerializeField] private Transform _enemiesContainer;
-    [SerializeField] private Transform _bulletsContainer;
-    [SerializeField] private GameObject _losePanel;
-    [SerializeField] private GameObject _winPanel;
-    [SerializeField] private GameObject _bulletPanel;
+    [SerializeField] private int _bulletsCount;
 
     private List<EnemyStickman> _enemies = new List<EnemyStickman>();
     private int _enemiesCount;
-    private int _bulletsCount;
     private bool win;
+    private GameObject _winPanel;
+    private GameObject _bulletPanel;
+    private GameObject _losePanel;
+    private GameObject _canvas;
 
     private void Awake()
     {
         if (instance == null)
             instance = this;
+        else
+            Destroy(gameObject);
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForEndOfFrame();
+
+        Setup();
         canShoot = true;
         win = false;
 
         foreach (Transform enemy in _enemiesContainer)
             _enemies.Add(enemy.gameObject.GetComponent<EnemyStickman>());
 
-        foreach (Transform bullet in _bulletsContainer)
-            _bulletsCount++;
-
         _enemiesCount = _enemies.Count;
-
         SubscribeEvents();
     }
 
-    private void OnDisable() => UnsubscribeEvents();
+    private void Setup()
+    {
+        _canvas = GameObject.Find("Canvas");
+        _bulletPanel = _canvas.transform.Find("BulletsPanel").gameObject;
+        _winPanel = _canvas.transform.Find("WinPanel").gameObject;
+        _losePanel = _canvas.transform.Find("LosePanel").gameObject;
+
+        _bulletPanel.SetActive(true);
+        _winPanel.SetActive(false);
+        _losePanel.SetActive(false);
+
+        for (int i = 0; i < _bulletsCount; i++)
+            Instantiate(_bulletObject, _bulletPanel.transform);
+
+    }
 
     private void SubscribeEvents()
     {
@@ -55,7 +72,6 @@ public class LevelSettings : MonoBehaviour
     private void OnEnemyDied()
     {
         _enemiesCount--;
-
         if (_enemiesCount == 0)
         {
             canShoot = false;
@@ -67,8 +83,7 @@ public class LevelSettings : MonoBehaviour
     private void OnShot()
     {
         _bulletsCount--;
-
-        Destroy(_bulletsContainer.GetChild(0).gameObject);
+        Destroy(_bulletPanel.transform.GetChild(0).gameObject);
 
         if (_bulletsCount == 0)
         {
@@ -79,7 +94,7 @@ public class LevelSettings : MonoBehaviour
         }
     }
 
-    private void UnsubscribeEvents()
+    public void UnsubscribeEvents()
     {
         foreach (Stickman enemy in _enemies)
             enemy.onDied -= OnEnemyDied;
@@ -87,7 +102,7 @@ public class LevelSettings : MonoBehaviour
         weapon.shoot -= OnShot;
     }
 
-    private IEnumerator OnLose()
+    public IEnumerator OnLose()
     {
         yield return new WaitForSeconds(3);
         if (!win)
