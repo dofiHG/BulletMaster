@@ -5,8 +5,8 @@ public class Stickman : MonoBehaviour
 {
     [SerializeField] private Transform _weaponParent;
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private Rigidbody[] _allRigidbodies;
     [SerializeField] private ParticleSystem _bloodParticles;
-    [HideInInspector] public bool isAlive = true;
     [HideInInspector] public Action onDied;
 
     private Animator _animator;
@@ -19,6 +19,7 @@ public class Stickman : MonoBehaviour
         _animator = GetComponent<Animator>();
         _mainCollider = GetComponent<Collider>();
         _deathSound = GetComponent<AudioSource>();
+        ConvertRigidbodies(true);
     }
 
     protected void GiveWeapon(int weaponNumber)
@@ -44,12 +45,20 @@ public class Stickman : MonoBehaviour
     public void OnDied(Vector3 direction)
     {
         _animator.enabled = false;
+        ConvertRigidbodies(false);
         _rigidbody.AddForce(direction * _force, ForceMode.Impulse);
         _bloodParticles.Play();
         _deathSound.Play();
         _mainCollider.enabled = false;
-        isAlive = false;
-
+        
         onDied?.Invoke();
+
+        this.enabled = false;
+    }
+
+    private void ConvertRigidbodies(bool isKinematic)
+    {
+        foreach (Rigidbody rigidbody in _allRigidbodies)
+            rigidbody.isKinematic = isKinematic;
     }
 }

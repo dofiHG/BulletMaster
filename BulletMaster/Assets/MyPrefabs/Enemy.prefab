@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8031792012363303230, guid: 813c31fac9e46e34cb02d70d4bad6234, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.19
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8031792012363303230, guid: 813c31fac9e46e34cb02d70d4bad6234, type: 3}
       propertyPath: m_LocalPosition.z
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponParent: {fileID: 0}
   _rigidbody: {fileID: 7248526595628158751}
+  _allRigidbodies: []
   _bloodParticles: {fileID: 7385707668355406664}
-  isAlive: 1
   _gunNumber: -1
 --- !u!54 &7248526595628158751 stripped
 Rigidbody:

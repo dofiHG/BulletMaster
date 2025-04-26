@@ -10,7 +10,9 @@ public class LevelSettings : MonoBehaviour
     [HideInInspector] public bool canShoot;
     public GameObject[] weapons;
     
-    [SerializeField] private GameObject _bulletObject; 
+    [SerializeField] private GameObject _bulletObject;
+    [SerializeField] private GameObject _bulletImage;
+    [SerializeField] private PlayerStickman _playerScript;
     [SerializeField] private Transform _enemiesContainer;
     [SerializeField] private int _bulletsCount;
 
@@ -57,8 +59,7 @@ public class LevelSettings : MonoBehaviour
         _losePanel.SetActive(false);
 
         for (int i = 0; i < _bulletsCount; i++)
-            Instantiate(_bulletObject, _bulletPanel.transform);
-
+            Instantiate(_bulletImage, _bulletPanel.transform);
     }
 
     private void SubscribeEvents()
@@ -66,7 +67,15 @@ public class LevelSettings : MonoBehaviour
         foreach (Stickman enemy in _enemies)
             enemy.onDied += OnEnemyDied;
 
+        _playerScript.onDied += DeadPlayer;
+
         weapon.shoot += OnShot;
+    }
+
+    private void DeadPlayer()
+    {
+        win = false;
+        StartCoroutine(OnLose());
     }
 
     private void OnEnemyDied()
@@ -99,20 +108,31 @@ public class LevelSettings : MonoBehaviour
         foreach (Stickman enemy in _enemies)
             enemy.onDied -= OnEnemyDied;
 
+        _playerScript.onDied -= DeadPlayer;
+
         weapon.shoot -= OnShot;
     }
 
     public IEnumerator OnLose()
     {
+        canShoot = false;
         yield return new WaitForSeconds(3);
-        if (!win)
+        if (win == false)
             _losePanel.SetActive(true);
+
+        UnsubscribeEvents();
     }
 
     private IEnumerator OnWin()
     {
         yield return new WaitForSeconds(3);
-        _bulletPanel.SetActive(false);
-        _winPanel.SetActive(true);
+
+        if (win)
+        {
+            _bulletPanel.SetActive(false);
+            _winPanel.SetActive(true);
+
+            UnsubscribeEvents();
+        }
     }
 }

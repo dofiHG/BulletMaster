@@ -13,13 +13,7 @@ public class PlayerStickman : Stickman
         Setup();
     }
 
-    private void Update()
-    {
-        RotatePlayer();
-
-        if (!isAlive)
-            StartCoroutine(LevelSettings.instance.OnLose());
-    }
+    private void Update() => RotatePlayer();
 
     private void RotatePlayer()
     {

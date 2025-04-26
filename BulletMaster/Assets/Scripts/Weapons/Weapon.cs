@@ -25,11 +25,7 @@ public class Weapon : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
         _shootSound = GetComponent<AudioSource>();
     }
-
-    protected Vector3 CalculateDirection()
-    {
-        return Vector3.zero;
-    }
+    
 
     protected void DrawLaser()
     {
