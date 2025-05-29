@@ -11,14 +11,15 @@ public class LevelSettings : MonoBehaviour
     [HideInInspector] public bool canShoot;
     public int reboundBulletsCount;
     public GameObject[] weapons;
-    
+
+    [SerializeField] private GameObject _starsPanel;
     [SerializeField] private GameObject _bulletObject;
     [SerializeField] private GameObject _bulletImage;
     [SerializeField] private PlayerStickman _playerScript;
     [SerializeField] private Transform _enemiesContainer;
     [SerializeField] private int _bulletsCount;
-    [SerializeField] private int _bulletsToThreeStars;
     [SerializeField] private int _bulletsToTwoStars;
+    [SerializeField] private int _bulletsToOneStar;
 
     private List<EnemyStickman> _enemies = new List<EnemyStickman>();
     private int _enemiesCount;
@@ -100,6 +101,11 @@ public class LevelSettings : MonoBehaviour
     {
         _bulletsCount--;
         Destroy(_bulletPanel.transform.GetChild(0).gameObject);
+
+        if (_bulletsCount == _bulletsToTwoStars)
+            _starsPanel.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        if (_bulletsCount == _bulletsToOneStar)
+            _starsPanel.transform.GetChild(1).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
 
         if (_bulletsCount == 0)
         {
