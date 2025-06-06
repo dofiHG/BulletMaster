@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate() => MoveBullet();
 
-    private void MoveBullet() => _rigidbody.velocity = direction * _speed;
+    private void MoveBullet() => _rigidbody.velocity = direction * _speed * 2.5f;
 
     private void OnTriggerEnter(Collider other)
     {

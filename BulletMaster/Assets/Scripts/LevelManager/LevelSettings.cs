@@ -16,12 +16,14 @@ public class LevelSettings : MonoBehaviour
     [SerializeField] private GameObject _bulletObject;
     [SerializeField] private GameObject _bulletImage;
     [SerializeField] private PlayerStickman _playerScript;
+    [SerializeField] private Transform _prisonersContainer;
     [SerializeField] private Transform _enemiesContainer;
     [SerializeField] private int _bulletsCount;
     [SerializeField] private int _bulletsToTwoStars;
     [SerializeField] private int _bulletsToOneStar;
 
     private List<EnemyStickman> _enemies = new List<EnemyStickman>();
+    private List<PrisonerStickman> _prisoners = new List<PrisonerStickman>();
     private int _enemiesCount;
     private bool win;
     private GameObject _winPanel;
@@ -47,6 +49,12 @@ public class LevelSettings : MonoBehaviour
 
         foreach (Transform enemy in _enemiesContainer)
             _enemies.Add(enemy.gameObject.GetComponent<EnemyStickman>());
+
+        if (_prisonersContainer != null)
+        {
+            foreach (Transform prisoner in _prisonersContainer)
+                _prisoners.Add(prisoner.gameObject.GetComponent<PrisonerStickman>());
+        }
 
         _enemiesCount = _enemies.Count;
         SubscribeEvents();
@@ -76,6 +84,12 @@ public class LevelSettings : MonoBehaviour
             enemy.onDied += OnEnemyDied;
 
         _playerScript.onDied += DeadPlayer;
+
+        if (_prisonersContainer != null)
+        {
+            foreach (Stickman prisoner in _prisoners)
+                prisoner.onDied += DeadPlayer;
+        }
 
         weapon.shoot += OnShot;
     }
@@ -122,6 +136,12 @@ public class LevelSettings : MonoBehaviour
             enemy.onDied -= OnEnemyDied;
 
         _playerScript.onDied -= DeadPlayer;
+
+        if (_prisonersContainer != null)
+        {
+            foreach (Stickman prisoner in _prisoners)
+                prisoner.onDied -= DeadPlayer;
+        }
 
         weapon.shoot -= OnShot;
     }
