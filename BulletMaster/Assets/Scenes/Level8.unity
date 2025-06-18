@@ -2933,7 +2933,7 @@ MonoBehaviour:
   _playerScript: {fileID: 2114790351}
   _prisonersContainer: {fileID: 0}
   _enemiesContainer: {fileID: 1811955172}
-  _bulletsCount: 100
+  _bulletsCount: 3
   _bulletsToTwoStars: 1
   _bulletsToOneStar: 0
 --- !u!4 &1991294912
