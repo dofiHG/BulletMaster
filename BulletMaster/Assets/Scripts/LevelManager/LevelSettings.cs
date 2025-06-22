@@ -25,7 +25,7 @@ public class LevelSettings : MonoBehaviour
     private List<EnemyStickman> _enemies = new List<EnemyStickman>();
     private List<PrisonerStickman> _prisoners = new List<PrisonerStickman>();
     private int _enemiesCount;
-    private bool win;
+    private int win;
     private GameObject _winPanel;
     private GameObject _bulletPanel;
     private GameObject _losePanel;
@@ -45,7 +45,7 @@ public class LevelSettings : MonoBehaviour
 
         Setup();
         canShoot = true;
-        win = false;
+        win = 0;
 
         foreach (Transform enemy in _enemiesContainer)
             _enemies.Add(enemy.gameObject.GetComponent<EnemyStickman>());
@@ -96,17 +96,18 @@ public class LevelSettings : MonoBehaviour
 
     private void DeadPlayer()
     {
-        win = false;
+        win = -1;
+        Debug.Log("DeadPlayer " + win);
         StartCoroutine(OnLose());
     }
 
     private void OnEnemyDied()
     {
         _enemiesCount--;
-        if (_enemiesCount == 0)
+        if (_enemiesCount == 0 && win != -1)
         {
             canShoot = false;
-            win = true;
+            win = 1;
             StartCoroutine(OnWin());
         }
     }
@@ -148,9 +149,10 @@ public class LevelSettings : MonoBehaviour
 
     public IEnumerator OnLose()
     {
+        Debug.Log("OnLose " + win);
         canShoot = false;
         yield return new WaitForSeconds(3);
-        if (win == false)
+        if (win == 0 || win == -1)
             _losePanel.SetActive(true);
 
         UnsubscribeEvents();
@@ -159,8 +161,8 @@ public class LevelSettings : MonoBehaviour
     private IEnumerator OnWin()
     {
         yield return new WaitForSeconds(3);
-
-        if (win)
+        Debug.Log("OnWin " + win);
+        if (win == 1)
         {
             _bulletPanel.SetActive(false);
             _winPanel.SetActive(true);
