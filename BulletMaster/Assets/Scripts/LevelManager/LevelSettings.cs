@@ -97,7 +97,6 @@ public class LevelSettings : MonoBehaviour
     private void DeadPlayer()
     {
         win = -1;
-        Debug.Log("DeadPlayer " + win);
         StartCoroutine(OnLose());
     }
 
@@ -149,7 +148,6 @@ public class LevelSettings : MonoBehaviour
 
     public IEnumerator OnLose()
     {
-        Debug.Log("OnLose " + win);
         canShoot = false;
         yield return new WaitForSeconds(3);
         if (win == 0 || win == -1)
@@ -161,7 +159,6 @@ public class LevelSettings : MonoBehaviour
     private IEnumerator OnWin()
     {
         yield return new WaitForSeconds(3);
-        Debug.Log("OnWin " + win);
         if (win == 1)
         {
             _bulletPanel.SetActive(false);
