@@ -585,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5764203702862434881, guid: 1b8d5a9a7ef2e7349be9784740094e32, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.9
+      value: -15.55
       objectReference: {fileID: 0}
     - target: {fileID: 5764203702862434881, guid: 1b8d5a9a7ef2e7349be9784740094e32, type: 3}
       propertyPath: m_LocalRotation.w
@@ -643,6 +643,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2092986371, guid: 10af818c2e28dcd45a65d766021e61d1, type: 3}
+      propertyPath: m_Radius
+      value: 8.19
+      objectReference: {fileID: 0}
     - target: {fileID: 5800216833824157453, guid: 10af818c2e28dcd45a65d766021e61d1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.17
@@ -653,7 +657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5800216833824157453, guid: 10af818c2e28dcd45a65d766021e61d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.4
+      value: -5.29
       objectReference: {fileID: 0}
     - target: {fileID: 5800216833824157453, guid: 10af818c2e28dcd45a65d766021e61d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -975,7 +979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 9212590224179476276, guid: eb5e35d812d85ca49996c521c3e375c4, type: 3}
   canShoot: 0
-  reboundBulletsCount: 3
+  reboundBulletsCount: 2
   weapons:
   - {fileID: 9212590224179476276, guid: eb5e35d812d85ca49996c521c3e375c4, type: 3}
   _starsPanel: {fileID: 187541463}
@@ -1872,7 +1876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1156476466948110997, guid: d02c3ff331030f045876f51bbbdb56c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.6
+      value: 24.59
       objectReference: {fileID: 0}
     - target: {fileID: 1156476466948110997, guid: d02c3ff331030f045876f51bbbdb56c2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1880,7 +1884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1156476466948110997, guid: d02c3ff331030f045876f51bbbdb56c2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.6
+      value: 20.85
       objectReference: {fileID: 0}
     - target: {fileID: 1156476466948110997, guid: d02c3ff331030f045876f51bbbdb56c2, type: 3}
       propertyPath: m_LocalRotation.w
