@@ -261,4 +261,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0.18363787, y: 0.0014864019, z: 0.9829928}
-  _speed: 20
+  _speed: 15
