@@ -6,17 +6,22 @@ public class Portal : MonoBehaviour
     [SerializeField] private Portal _exit;
 
     private bool _canTeleport = true;
-    private float _delayBeforeTeleport = 0.2f;
 
     private void OnTriggerEnter(Collider other)
     {
         if (_canTeleport)
         {
             _exit._canTeleport = false;
+            Bullet bullet = other.GetComponent<Bullet>();
 
-            other.GetComponent<TrailRenderer>().emitting = false;
-            other.GetComponent<TrailRenderer>().Clear();
-            other.gameObject.transform.position = _exit.transform.position;
+            bullet.GetComponent<TrailRenderer>().emitting = false;
+            bullet.GetComponent<TrailRenderer>().Clear();
+            bullet.gameObject.transform.position = _exit.transform.position;
+
+            Vector3 localEntryDirection = transform.InverseTransformDirection(bullet.direction);
+            Vector3 newWorldDirection = _exit.transform.TransformDirection(localEntryDirection);
+
+            bullet.direction = newWorldDirection;
         }
     }
 
