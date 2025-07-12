@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class LevelSettings : MonoBehaviour
 {
@@ -26,6 +29,7 @@ public class LevelSettings : MonoBehaviour
     private List<PrisonerStickman> _prisoners = new List<PrisonerStickman>();
     private int _enemiesCount;
     private int win;
+    private int _starsCount;
     private GameObject _winPanel;
     private GameObject _bulletPanel;
     private GameObject _losePanel;
@@ -44,6 +48,7 @@ public class LevelSettings : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         Setup();
+        _starsCount = 3;
         canShoot = true;
         win = 0;
 
@@ -113,13 +118,23 @@ public class LevelSettings : MonoBehaviour
 
     private void OnShot()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         _bulletsCount--;
         Destroy(_bulletPanel.transform.GetChild(0).gameObject);
 
         if (_bulletsCount == _bulletsToTwoStars)
+        {
             _starsPanel.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            _starsCount = 2;
+        }
         if (_bulletsCount == _bulletsToOneStar)
+        {
             _starsPanel.transform.GetChild(1).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            _starsCount = 1;
+        }
+            
 
         if (_bulletsCount == 0)
         {
@@ -165,6 +180,7 @@ public class LevelSettings : MonoBehaviour
             _winPanel.SetActive(true);
 
             UnsubscribeEvents();
+            YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] = _starsCount;
         }
     }
 }

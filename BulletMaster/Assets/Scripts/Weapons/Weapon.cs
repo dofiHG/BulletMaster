@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Weapon : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class Weapon : MonoBehaviour
 
     protected void DrawLaser()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         _lineRenderer.positionCount = 2;
         var laserLength = _maxLaserLength;
         direction = (gunEndPosition.position - gunStartPosition.position).normalized;
@@ -51,6 +54,8 @@ public class Weapon : MonoBehaviour
 
     protected void Shoot(int type)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         if (type == 1)
         {
             GameObject bullet = Instantiate(_bullet);
