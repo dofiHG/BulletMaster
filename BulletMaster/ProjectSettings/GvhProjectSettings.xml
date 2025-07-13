@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<projectSettings>
-  <projectSetting name="com.google.external-dependency-managerAnalyticsCookie" value="955aa422a9c344e695759626e67fb915" />
-  <projectSetting name="com.google.external-dependency-managerAnalyticsEnabled" value="True" />
-  <projectSetting name="Google.PackageManagerResolver.VerboseLoggingEnabled" value="False" />
-  <projectSetting name="Google.VersionHandler.VerboseLoggingEnabled" value="False" />
-</projectSettings>
