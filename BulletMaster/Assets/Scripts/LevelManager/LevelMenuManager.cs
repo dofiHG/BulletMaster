@@ -1,36 +1,12 @@
 using YG;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.Linq;
 
 public class LevelMenuManager : MonoBehaviour
 {
     [SerializeField] private List<Transform> _levels = new List<Transform>();
     [SerializeField] Transform _levelsContent;
-
-    private void Start()
-    {
-        for (int i = 1; i != 999; i++)
-        {
-            string levelName = $"Level{i}";
-            GameObject level = Resources.FindObjectsOfTypeAll<GameObject>()
-                .FirstOrDefault(go => go.name == levelName);
-
-            if (level != null)
-            {
-                Transform container = level.transform
-                    .GetComponentsInChildren<Transform>(true)
-                    .FirstOrDefault(t => t.name == "StarsContainer");
-
-                _levels.Add(container);
-            }
-
-            else 
-                break;
-        }
-    }
 
     public void ActivateMenu() => PaintStars();
 

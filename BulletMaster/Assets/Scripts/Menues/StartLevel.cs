@@ -9,10 +9,18 @@ public class StartLevel : MonoBehaviour
         YG2.InterstitialAdvShow();
         LevelSettings.instance.UnsubscribeEvents();
 
-        if (index == 0) 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
 
+        if (index == 0)
+        {
+            dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+            
         else
+        {
+            dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }   
     }
 }

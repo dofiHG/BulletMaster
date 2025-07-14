@@ -68,9 +68,10 @@ public class LevelSettings : MonoBehaviour
     private void Setup()
     {
         _canvas = GameObject.Find("Canvas");
+        GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
         _bulletPanel = _canvas.transform.Find("BulletsPanel").gameObject;
-        _winPanel = _canvas.transform.Find("WinPanel").gameObject;
-        _losePanel = _canvas.transform.Find("LosePanel").gameObject;
+        _winPanel = dontDestroy.transform.Find("WinPanel").gameObject;
+        _losePanel = dontDestroy.transform.Find("LosePanel").gameObject;
 
         _bulletPanel.SetActive(true);
         _winPanel.SetActive(false);
@@ -134,7 +135,6 @@ public class LevelSettings : MonoBehaviour
             _starsPanel.transform.GetChild(1).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             _starsCount = 1;
         }
-            
 
         if (_bulletsCount == 0)
         {
@@ -165,6 +165,12 @@ public class LevelSettings : MonoBehaviour
     {
         canShoot = false;
         yield return new WaitForSeconds(3);
+
+        try
+        { GameObject.Find("LevelsMenu").SetActive(false); }
+
+        catch { }
+
         if (win == 0 || win == -1)
             _losePanel.SetActive(true);
 
@@ -174,14 +180,22 @@ public class LevelSettings : MonoBehaviour
     private IEnumerator OnWin()
     {
         yield return new WaitForSeconds(3);
+        try
+            { GameObject.Find("LevelsMenu").SetActive(false); }
+        catch { }
+        
         if (win == 1)
         {
             _bulletPanel.SetActive(false);
             _winPanel.SetActive(true);
-
+            GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
+            dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(true);
             UnsubscribeEvents();
-            YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] = _starsCount;
-            YG2.SaveProgress();
+            if (YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] < _starsCount)
+            {
+                YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] = _starsCount;
+                YG2.SaveProgress();
+            }
         }
     }
 }
