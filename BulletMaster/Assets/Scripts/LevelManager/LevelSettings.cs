@@ -72,10 +72,12 @@ public class LevelSettings : MonoBehaviour
         _bulletPanel = _canvas.transform.Find("BulletsPanel").gameObject;
         _winPanel = dontDestroy.transform.Find("WinPanel").gameObject;
         _losePanel = dontDestroy.transform.Find("LosePanel").gameObject;
+        GameObject levelsMenu = dontDestroy.transform.Find("LevelsMenu").gameObject;
 
         _bulletPanel.SetActive(true);
         _winPanel.SetActive(false);
         _losePanel.SetActive(false);
+        levelsMenu.SetActive(false);
 
         foreach (Transform child in _bulletPanel.transform)
             Destroy(child.gameObject);
@@ -188,12 +190,20 @@ public class LevelSettings : MonoBehaviour
         {
             _bulletPanel.SetActive(false);
             _winPanel.SetActive(true);
+
+            if (SceneManager.GetActiveScene().buildIndex == YG2.saves.openedLevels.Length - 1)
+                _winPanel.transform.Find("NextLvL").gameObject.SetActive(false);
+            else
+                _winPanel.transform.Find("NextLvL").gameObject.SetActive(true);
+
             GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
             dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(true);
+            dontDestroy.transform.Find("Victory").gameObject.SetActive(true);
             UnsubscribeEvents();
             if (YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] < _starsCount)
             {
                 YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] = _starsCount;
+                YG2.saves.openedLevels[SceneManager.GetActiveScene().buildIndex + 1] = 1;
                 YG2.SaveProgress();
             }
         }

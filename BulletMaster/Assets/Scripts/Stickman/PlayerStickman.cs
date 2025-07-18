@@ -1,13 +1,16 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStickman : Stickman
 {
     [SerializeField] private int _weaponNumber;
 
-    public Camera _camera;
+    private Camera _camera;
 
     private void Start()
     {
+        GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
+        _camera = dontDestroy.transform.Find("Main Camera").GetComponent<Camera>();
         GiveWeapon(_weaponNumber);
         Setup();
     }

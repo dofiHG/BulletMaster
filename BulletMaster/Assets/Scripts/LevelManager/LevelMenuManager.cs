@@ -2,11 +2,21 @@ using YG;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LevelMenuManager : MonoBehaviour
 {
-    [SerializeField] private List<Transform> _levels = new List<Transform>();
-    [SerializeField] Transform _levelsContent;
+    [SerializeField] private Transform _levelsContent;
+    [SerializeField] private Sprite _lockedLevel;
+    [SerializeField] private Sprite _unlockedLevel;
+
+    private List<Transform> _levels = new List<Transform>();
+
+    private void Start()
+    {
+        foreach(Transform level in _levelsContent)
+            _levels.Add(level);
+    }
 
     public void ActivateMenu() => PaintStars();
 
@@ -15,9 +25,9 @@ public class LevelMenuManager : MonoBehaviour
         int i = 0;
         foreach (Transform level in _levels)
         {
-            Transform star1 = level.Find("Star1");
-            Transform star2 = level.Find("Star2");
-            Transform star3 = level.Find("Star3");
+            Transform star1 = level.Find("StarsContainer").Find("Star1");
+            Transform star2 = level.Find("StarsContainer").Find("Star2");
+            Transform star3 = level.Find("StarsContainer").Find("Star3");
 
             Color32 goldColor = new Color32(255, 251, 0, 255);
 
@@ -31,6 +41,10 @@ public class LevelMenuManager : MonoBehaviour
                     goto case 1;
                 case 1:
                     SetStarColor(star1, goldColor);
+                    break;
+                case 0:
+                    if (YG2.saves.openedLevels[i] == 0)
+                        level.GetComponent<Image>().sprite = _lockedLevel;
                     break;
             }
             i++;

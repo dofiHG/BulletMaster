@@ -7,6 +7,7 @@ TagManager:
   - Ammo
   - Wall
   - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Confettie
   - 
   - 
   - 

@@ -18,8 +18,9 @@ public class SoundManager : MonoBehaviour
 
     public void OnMenuButtonClick()
     {    
-        bool isActive;
-        isActive = _menu.activeSelf == true ? false: true;
+        bool isActive = _menu.activeSelf == true ? false: true;
         _menu.SetActive(isActive);
+
+        GameObject.FindGameObjectWithTag("Weapon").GetComponent<Weapon>().enabled = !isActive;
     }
 }
