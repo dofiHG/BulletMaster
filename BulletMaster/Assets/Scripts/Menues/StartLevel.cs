@@ -9,7 +9,7 @@ public class StartLevel : MonoBehaviour
         YG2.InterstitialAdvShow();
         LevelSettings.instance.UnsubscribeEvents();
 
-        GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
+        GameObject dontDestroy = GameObject.Find("DontDestroy");
 
         if (index == -1)
         {

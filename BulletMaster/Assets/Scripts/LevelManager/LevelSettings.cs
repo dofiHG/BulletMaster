@@ -68,7 +68,7 @@ public class LevelSettings : MonoBehaviour
     private void Setup()
     {
         _canvas = GameObject.Find("Canvas");
-        GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
+        GameObject dontDestroy = GameObject.Find("DontDestroyCanvas");
         _bulletPanel = _canvas.transform.Find("BulletsPanel").gameObject;
         _winPanel = dontDestroy.transform.Find("WinPanel").gameObject;
         _losePanel = dontDestroy.transform.Find("LosePanel").gameObject;
@@ -196,16 +196,15 @@ public class LevelSettings : MonoBehaviour
             else
                 _winPanel.transform.Find("NextLvL").gameObject.SetActive(true);
 
-            GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
+            GameObject dontDestroy = GameObject.Find("DontDestroy");
             dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(true);
             dontDestroy.transform.Find("Victory").gameObject.SetActive(true);
             UnsubscribeEvents();
+
+            YG2.saves.openedLevels[SceneManager.GetActiveScene().buildIndex + 1] = 1;
             if (YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] < _starsCount)
-            {
                 YG2.saves.stars[SceneManager.GetActiveScene().buildIndex] = _starsCount;
-                YG2.saves.openedLevels[SceneManager.GetActiveScene().buildIndex + 1] = 1;
-                YG2.SaveProgress();
-            }
+            YG2.SaveProgress();
         }
     }
 }

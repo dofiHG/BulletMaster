@@ -9,7 +9,7 @@ public class PlayerStickman : Stickman
 
     private void Start()
     {
-        GameObject dontDestroy = GameObject.Find("DontDestroyOnLoad");
+        GameObject dontDestroy = GameObject.Find("DontDestroy");
         _camera = dontDestroy.transform.Find("Main Camera").GetComponent<Camera>();
         GiveWeapon(_weaponNumber);
         Setup();

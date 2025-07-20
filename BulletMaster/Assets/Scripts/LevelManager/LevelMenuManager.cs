@@ -44,7 +44,11 @@ public class LevelMenuManager : MonoBehaviour
                     break;
                 case 0:
                     if (YG2.saves.openedLevels[i] == 0)
+                    {
                         level.GetComponent<Image>().sprite = _lockedLevel;
+                        level.GetComponent<Button>().enabled = false;
+                    }
+
                     break;
             }
             i++;
