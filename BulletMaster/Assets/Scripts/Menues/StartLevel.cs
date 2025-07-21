@@ -11,25 +11,17 @@ public class StartLevel : MonoBehaviour
 
         GameObject dontDestroy = GameObject.Find("DontDestroy");
 
+        dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(false);
+        dontDestroy.transform.Find("Victory").gameObject.SetActive(false);
+        dontDestroy.transform.Find("LoseSound").gameObject.SetActive(false);
+
         if (index == -1)
-        {
-            dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(false);
-            dontDestroy.transform.Find("Victory").gameObject.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
             
         else if(index == 99)
-        {
-            dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(false);
-            dontDestroy.transform.Find("Victory").gameObject.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }   
 
         else
-        {
-            dontDestroy.transform.Find("ConfettiParticleSystem").gameObject.SetActive(false);
-            dontDestroy.transform.Find("Victory").gameObject.SetActive(false);
             SceneManager.LoadScene(index);
-        }
     }
 }

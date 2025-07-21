@@ -48,6 +48,11 @@ public class LevelMenuManager : MonoBehaviour
                         level.GetComponent<Image>().sprite = _lockedLevel;
                         level.GetComponent<Button>().enabled = false;
                     }
+                    else
+                    {
+                        level.GetComponent<Image>().sprite = _unlockedLevel;
+                        level.GetComponent<Button>().enabled = true;
+                    }
 
                     break;
             }

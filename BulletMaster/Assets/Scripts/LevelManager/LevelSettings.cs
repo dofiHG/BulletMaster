@@ -176,6 +176,9 @@ public class LevelSettings : MonoBehaviour
         if (win == 0 || win == -1)
             _losePanel.SetActive(true);
 
+        GameObject dontDestroy = GameObject.Find("DontDestroy");
+        dontDestroy.transform.Find("LoseSound").gameObject.SetActive(true);
+
         UnsubscribeEvents();
     }
 
