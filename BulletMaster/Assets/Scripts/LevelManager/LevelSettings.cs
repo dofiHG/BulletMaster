@@ -167,7 +167,6 @@ public class LevelSettings : MonoBehaviour
     {
         canShoot = false;
         yield return new WaitForSeconds(3);
-
         try
         { GameObject.Find("LevelsMenu").SetActive(false); }
 
@@ -188,7 +187,6 @@ public class LevelSettings : MonoBehaviour
         try
             { GameObject.Find("LevelsMenu").SetActive(false); }
         catch { }
-        
         if (win == 1)
         {
             _bulletPanel.SetActive(false);
