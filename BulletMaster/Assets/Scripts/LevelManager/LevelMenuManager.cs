@@ -31,6 +31,17 @@ public class LevelMenuManager : MonoBehaviour
 
             Color32 goldColor = new Color32(255, 251, 0, 255);
 
+            if (YG2.saves.openedLevels[i] == 0)
+            {
+                level.GetComponent<Image>().sprite = _lockedLevel;
+                level.GetComponent<Button>().enabled = false;
+            }
+            else
+            {
+                level.GetComponent<Image>().sprite = _unlockedLevel;
+                level.GetComponent<Button>().enabled = true;
+            }
+
             switch (YG2.saves.stars[i])
             {
                 case 3:
@@ -41,19 +52,6 @@ public class LevelMenuManager : MonoBehaviour
                     goto case 1;
                 case 1:
                     SetStarColor(star1, goldColor);
-                    break;
-                case 0:
-                    if (YG2.saves.openedLevels[i] == 0)
-                    {
-                        level.GetComponent<Image>().sprite = _lockedLevel;
-                        level.GetComponent<Button>().enabled = false;
-                    }
-                    else
-                    {
-                        level.GetComponent<Image>().sprite = _unlockedLevel;
-                        level.GetComponent<Button>().enabled = true;
-                    }
-
                     break;
             }
             i++;

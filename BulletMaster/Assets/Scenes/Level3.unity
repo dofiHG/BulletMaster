@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 9212590224179476276, guid: eb5e35d812d85ca49996c521c3e375c4, type: 3}
   canShoot: 0
-  reboundBulletsCount: 4
+  reboundBulletsCount: 2
   weapons:
   - {fileID: 5325006842271996186, guid: 610f72c213198c64ebf9c8b432c3a0e5, type: 3}
   _starsPanel: {fileID: 589690785}
